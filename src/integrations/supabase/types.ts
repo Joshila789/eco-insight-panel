@@ -14,16 +14,99 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      profiles: {
+        Row: {
+          created_at: string
+          full_name: string
+          id: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          full_name?: string
+          id?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          full_name?: string
+          id?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
+      waste_reports: {
+        Row: {
+          created_at: string
+          description: string
+          id: string
+          location: string
+          priority: Database["public"]["Enums"]["report_priority"]
+          status: Database["public"]["Enums"]["report_status"]
+          updated_at: string
+          user_id: string
+          waste_type: Database["public"]["Enums"]["waste_type"]
+        }
+        Insert: {
+          created_at?: string
+          description: string
+          id?: string
+          location: string
+          priority?: Database["public"]["Enums"]["report_priority"]
+          status?: Database["public"]["Enums"]["report_status"]
+          updated_at?: string
+          user_id: string
+          waste_type?: Database["public"]["Enums"]["waste_type"]
+        }
+        Update: {
+          created_at?: string
+          description?: string
+          id?: string
+          location?: string
+          priority?: Database["public"]["Enums"]["report_priority"]
+          status?: Database["public"]["Enums"]["report_status"]
+          updated_at?: string
+          user_id?: string
+          waste_type?: Database["public"]["Enums"]["waste_type"]
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin" | "user"
+      report_priority: "high" | "medium" | "low"
+      report_status: "pending" | "in_progress" | "completed"
+      waste_type: "biodegradable" | "non_biodegradable" | "mixed"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +233,11 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin", "user"],
+      report_priority: ["high", "medium", "low"],
+      report_status: ["pending", "in_progress", "completed"],
+      waste_type: ["biodegradable", "non_biodegradable", "mixed"],
+    },
   },
 } as const
