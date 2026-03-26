@@ -52,13 +52,13 @@ const Admin = () => {
   }, []);
 
   const updateStatus = async (id: string, status: string) => {
-    const { error } = await supabase.from("waste_reports").update({ status }).eq("id", id);
+    const { error } = await supabase.from("waste_reports").update({ status: status as "pending" | "in_progress" | "completed" }).eq("id", id);
     if (error) toast.error("Failed to update status");
     else toast.success("Status updated!");
   };
 
   const updatePriority = async (id: string, priority: string) => {
-    const { error } = await supabase.from("waste_reports").update({ priority }).eq("id", id);
+    const { error } = await supabase.from("waste_reports").update({ priority: priority as "high" | "medium" | "low" }).eq("id", id);
     if (error) toast.error("Failed to update priority");
     else toast.success("Priority updated!");
   };
